@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dein</string>
+    <string name="homeslogan">Pekerjaan Terorganisir dengan Dein !</string>
+    <string name="register">Daftar</string>
+    <string name="sign_in">Masuk</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in_to_your_account">Masuk ke akun anda</string>
+    <string name="email_address">Alamat Email</string>
+    <string name="password">Password</string>
+    <string name="google">Google</string>
+    <string name="or_sign_in_with">atau masuk dengan</string>
+</resources>
