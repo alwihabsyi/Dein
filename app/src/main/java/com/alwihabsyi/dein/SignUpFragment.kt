@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.alwihabsyi.dein.databinding.FragmentSignInBinding
+import com.alwihabsyi.dein.databinding.FragmentSignUpBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -18,13 +18,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
-@Suppress("UNREACHABLE_CODE")
-class SignInFragment : BottomSheetDialogFragment() {
+class SignUpFragment : BottomSheetDialogFragment() {
 
+    private lateinit var binding: FragmentSignUpBinding
+    private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
-    private lateinit var binding: FragmentSignInBinding
     private lateinit var gsc: GoogleSignInClient
 
     override fun onCreateView(
@@ -33,9 +35,10 @@ class SignInFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentSignInBinding.inflate(inflater, container, false)
+        binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
         auth = Firebase.auth
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,39 +50,56 @@ class SignInFragment : BottomSheetDialogFragment() {
             .build()
         gsc = GoogleSignIn.getClient(requireContext(), gso)
 
-        binding.btnSignin.setOnClickListener {
-            startSigningIn()
-        }
-
         binding.btnGooglesignin.setOnClickListener {
             googleSignIn()
         }
+
+        binding.btnSignup.setOnClickListener {
+            startSigningUp()
+        }
     }
 
-    private fun startSigningIn() {
-        val email = binding.etEmail.text
-        val password = binding.etPassword.text
-        val emInput = email.toString()
-        val pwInput = password.toString()
+    private fun startSigningUp() {
+        val etEmail = binding.etemailSU.text
+        val etPW = binding.etpasswordSU.text
+        val etconfPW = binding.etconfpasswordSU.text
+        val etUname = binding.etUserName.text
 
-        if(email!!.isEmpty() || password!!.isEmpty()){
+        val emInput = etEmail.toString()
+        val pwInput = etPW.toString()
+        val user = etUname.toString()
+        val confpwInput = etconfPW.toString()
+
+        if (etEmail!!.isEmpty() || etPW!!.isEmpty() || etconfPW!!.isEmpty() || etUname!!.isEmpty()) {
             Toast.makeText(this.context, R.string.isi_field, Toast.LENGTH_SHORT).show()
             return
         }
 
-        auth.signInWithEmailAndPassword(emInput, pwInput).addOnCompleteListener {
-            if (it.isSuccessful) {
-                val intent = Intent(this.context, MainActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
-            } else {
-                Toast.makeText(this.context, "", Toast.LENGTH_SHORT).show()
-            }
-        }.addOnFailureListener {
-            Toast.makeText(this.context, it.localizedMessage, Toast.LENGTH_SHORT)
-                .show()
+        if (confpwInput != pwInput) {
+            Toast.makeText(this.context, R.string.pwSalah, Toast.LENGTH_SHORT).show()
+            return
         }
+
+        auth.createUserWithEmailAndPassword(emInput, pwInput)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(this.context, R.string.suSucceed, Toast.LENGTH_SHORT)
+                        .show()
+
+                    database = FirebaseDatabase.getInstance().getReference("User")
+                    val uid = auth.currentUser?.uid
+                    val datauser = DataUser(uid, user)
+                    database.child(uid!!).setValue(datauser)
+                } else {
+                    Toast.makeText(this.context, "Gagal Mendaftar", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }.addOnFailureListener {
+                Toast.makeText(this.context, it.localizedMessage, Toast.LENGTH_SHORT)
+                    .show()
+            }
     }
+
 
     companion object{
         const val RC_SIGN_IN = 1000
@@ -88,19 +108,19 @@ class SignInFragment : BottomSheetDialogFragment() {
 
     private fun googleSignIn() {
         val signInIntent = gsc.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(signInIntent, SignInFragment.RC_SIGN_IN)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == RC_SIGN_IN){
+        if(requestCode == SignInFragment.RC_SIGN_IN){
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(ContentValues.TAG, "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)
-            }catch (e:ApiException){
+            }catch (e: ApiException){
                 Log.w(ContentValues.TAG, "Google sign in failed", e)
             }
         }
@@ -118,15 +138,19 @@ class SignInFragment : BottomSheetDialogFragment() {
                     Log.w(ContentValues.TAG, "signInWithCredential:failed" + it.exception)
                     updateUI(null)
                 }
-        }
+            }
     }
 
     private fun updateUI(user: FirebaseUser?) {
         if(user != null){
+            database = FirebaseDatabase.getInstance().getReference("User")
+            val datauser = DataUser(user.uid, user.displayName)
+            database.child(user.uid).setValue(datauser)
             val intent = Intent(context, MainActivity::class.java)
-            intent.putExtra(EXTRA_NAME, user?.displayName)
+            intent.putExtra(SignInFragment.EXTRA_NAME, user.displayName)
             startActivity(intent)
             activity?.finish()
         }
     }
 }
+

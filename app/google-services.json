@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "793143099222",
+    "project_id": "dein-de420",
+    "storage_bucket": "dein-de420.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793143099222:android:78f4cefc9050e7573420f7",
+        "android_client_info": {
+          "package_name": "com.alwihabsyi.dein"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793143099222-j5r05tbkdqilsken13gv4f9jj3u3s5bj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvIytlAyykAmXxPzOqlamCxL1Yw5yZ5FE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793143099222-j5r05tbkdqilsken13gv4f9jj3u3s5bj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

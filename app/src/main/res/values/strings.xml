@@ -10,4 +10,11 @@
     <string name="password">Password</string>
     <string name="google">Google</string>
     <string name="or_sign_in_with">or sign in with</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="or_sign_up_with">or continue with</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="isi_field">Please fill all the fields</string>
+    <string name="pwSalah">Password does not match</string>
+    <string name="suSucceed">Account Created Successfully, Please Sign In</string>
 </resources>

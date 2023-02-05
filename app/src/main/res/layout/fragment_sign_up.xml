@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="150dp"
         android:background="@drawable/fragmentcorners"
-        android:paddingTop="30dp"
         android:paddingStart="20dp"
+        android:paddingTop="30dp"
         android:paddingEnd="20dp"
         android:paddingBottom="20dp">
 
@@ -23,11 +23,11 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/quicksand_semibold"
-            android:text="@string/sign_in_to_your_account"
+            android:text="@string/create_an_account"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tl_emailaddress"
+            android:id="@+id/tl_username"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_below="@+id/tvsignin"
@@ -44,7 +44,40 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmail"
+                android:id="@+id/etUserName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/quicksand_semibold"
+                android:hint="Username"
+                android:inputType="text"
+                android:maxLength="8"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="20dp"
+                android:textColorHint="@color/black"
+                android:textCursorDrawable="@null" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tl_emailaddress"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/tl_username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="30dp"
+            app:boxCornerRadiusBottomStart="30dp"
+            app:boxCornerRadiusTopEnd="30dp"
+            app:boxCornerRadiusTopStart="30dp"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="2dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etemailSU"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/quicksand_semibold"
@@ -79,7 +112,7 @@
             app:passwordToggleTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPassword"
+                android:id="@+id/etpasswordSU"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:cursorVisible="false"
@@ -95,11 +128,49 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tl_confpassword"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/tl_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            app:boxBackgroundColor="@color/black"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="30dp"
+            app:boxCornerRadiusBottomStart="30dp"
+            app:boxCornerRadiusTopEnd="30dp"
+            app:boxCornerRadiusTopStart="30dp"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="2dp"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etconfpasswordSU"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cursorVisible="false"
+                android:fontFamily="@font/quicksand_semibold"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textCursorDrawable="@null" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/btn_signin"
+            android:id="@+id/btn_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tl_password"
+            android:layout_below="@id/tl_confpassword"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:clickable="true"
@@ -117,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/quicksand_semibold"
-                android:text="@string/sign_in"
+                android:text="@string/sign_up"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -128,7 +199,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/btn_signin"
+            android:layout_below="@id/btn_signup"
             android:layout_marginStart="30dp"
             android:layout_marginTop="35dp"
             android:layout_marginEnd="5dp"
@@ -138,7 +209,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/btn_signin"
+            android:layout_below="@id/btn_signup"
             android:layout_marginStart="5dp"
             android:layout_marginTop="35dp"
             android:layout_marginEnd="30dp"
@@ -149,11 +220,11 @@
             android:id="@+id/tvorsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_signin"
+            android:layout_below="@id/btn_signup"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:fontFamily="@font/quicksand_semibold"
-            android:text="@string/or_sign_in_with"
+            android:text="@string/or_sign_up_with"
             android:textSize="15sp" />
 
         <androidx.cardview.widget.CardView
