@@ -17,4 +17,8 @@
     <string name="isi_field">Harap isi semua field</string>
     <string name="pwSalah">Password tidak sama</string>
     <string name="suSucceed">Berhasil Buat Akun, Silahkan Login</string>
+    <string name="hi">Halo, </string>
+    <string name="uname">pengguna</string>
+    <string name="hyd">Bagaimana Harimu?</string>
+    <string name="wftd">motivasi hari ini ?</string>
 </resources>

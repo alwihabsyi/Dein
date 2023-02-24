@@ -17,4 +17,8 @@
     <string name="isi_field">Please fill all the fields</string>
     <string name="pwSalah">Password does not match</string>
     <string name="suSucceed">Account Created Successfully, Please Sign In</string>
+    <string name="hi">Hi, </string>
+    <string name="uname">username</string>
+    <string name="hyd">How\'s your day?</string>
+    <string name="wftd">words for the day ?</string>
 </resources>
